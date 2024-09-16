@@ -7,6 +7,7 @@ from Utilities.configuration import GetConfig
 # Get Status
 response = requests.get(GetConfig()['APIS']['URL'])
 Response = response.json()
+response.raise_for_status()
 assert response.status_code == 200
 assert 'Simple Grocery Store API.' in Response["message"]
 print(Response)
@@ -27,6 +28,7 @@ for Products in Product_Response:
 # Create a new cart
 response_Create_Cart = requests.post(GetConfig()['APIS']['URL'] + Resources.AddCart)
 Cart_Response = response_Create_Cart.json()
+print(f"Response Headers : {response_Create_Cart.headers}")
 assert response_Create_Cart.status_code == 201
 Cart_ID = Cart_Response["cartId"]
 print(f"Cart Created Successfully: {Cart_Response}")
