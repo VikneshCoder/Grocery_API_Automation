@@ -1,8 +1,7 @@
 import requests
-from faker import Faker
-from Payload import AddToCart, UserRegister, CreateOrder
-from Utilities.Resources import Resources
-from Utilities.configuration import GetConfig
+from Utilities.Resources import *
+from Utilities.configuration import *
+from Payload import *
 
 # Get Status
 response = requests.get(GetConfig()['APIS']['URL'])
@@ -55,8 +54,8 @@ for item in Get_Item_Response:
 
 
 # User Register
-fake = Faker()
-response_User_Login = requests.post(GetConfig()['APIS']['URL'] + Resources.UserRegister, json=UserRegister(fake))
+Query = 'SELECT * FROM useraccount.userform'
+response_User_Login = requests.post(GetConfig()['APIS']['URL'] + Resources.UserRegister, json=Register(Query))
 User_Login_Response = response_User_Login.json()
 print(f"Status Code For New User Register :{response_User_Login.status_code}")
 assert response_User_Login.status_code == 201
